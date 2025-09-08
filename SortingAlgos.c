@@ -7,6 +7,7 @@ void showList(){
 	}
 }
 
+
 void bubbleSort(int a[], int l){
 	for(int i = 0; i<l; i++){
 		for(int j = 0; j<(l-1); j++){
@@ -19,9 +20,24 @@ void bubbleSort(int a[], int l){
 	}
 }
 
+void selectionSort(int a[], int l){
+	for (int step = 0; step < l - 1; step++) {
+    int min_idx = step;
+    	for (int i = step + 1; i < l; i++) {
+    		if (a[i] < a[min_idx])
+        	min_idx = i;
+    	}
+
+    int temp = a[step];
+    a[step] = a[min_idx];
+    a[min_idx] = temp;
+  }
+}
+
 int main(){
 	showList();
-	bubbleSort(list, 10);
+	selectionSort(list, 10);
+	//bubbleSort(list, 10);
 	printf("\n\n");
 	showList();
 	
