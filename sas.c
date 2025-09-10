@@ -5,7 +5,18 @@
 
 #define RESET   "\033[0m"
 #define RED     "\033[1;31m"
+#define MAX 100
 
+typedef struct {
+    char f_name[50];
+	char l_name[50];
+	int shirtNum;
+	char position[50];
+	int goals;
+	int age;
+	char inscription[50];
+	char status[50];
+} Player;
 
 void print(char value[], bool msg){
 	if(strlen(value) <= 6){
@@ -17,6 +28,7 @@ void print(char value[], bool msg){
 	}else if(strlen(value) <= 30 && strlen(value) > 22){
 		switch(msg){
 			case true:
+				printf("\n|\t\t\t\t\t\t\t\t       |");
 				printf("\n|%s%s %s\t\t\t\t\t       |",RED, value, RESET);
 				break;
 			case false:
@@ -37,15 +49,13 @@ void print(char value[], bool msg){
 	}
 }
 
+void addIt(){	
+	printf("\n  Nom:  ");
+}
+
 void addPlayer(){
-	
-	void addIt(){	
-		system("cls");
-		printf("\n  Nom:  ");
-		scanf("%d");
-		
-	}
 	int command;
+	
 	system("cls");
 	printf("\n--------------------- Gestion d'equipe de football ---------------------");
 	print("1.  Ajouter un nouveau joueur.", false);
