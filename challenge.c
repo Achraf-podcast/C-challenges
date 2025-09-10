@@ -47,7 +47,7 @@ void eleminate(int list[], int size){
                 for (int k = j; k < size - 1; k++) {
                     list[k] = list[k + 1];
                 }
-                size--;   // decrease array size
+                size--;  
                 j--;
             }
         }
