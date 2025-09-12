@@ -10,6 +10,7 @@
 #define MAX 100
 
 typedef struct {
+	int id;
     char f_name[50];
 	char l_name[50];
 	int shirtNum;
@@ -71,7 +72,8 @@ void print(char value[], int error){
 	}
 }
 
-void addIt(char f_name[], char l_name[], int shirtNum, char post[], int goals, int age, char birthday[], char inscription[], char status[]){	
+void addIt(char f_name[], char l_name[], int shirtNum, char post[], int goals, int age, char birthday[], char inscription[], char status[]){
+	players[playersNum].id = playersNum;	
 	strcpy(players[playersNum].f_name, f_name);
 	strcpy(players[playersNum].l_name, l_name);
 	players[playersNum].shirtNum = shirtNum;
@@ -196,10 +198,11 @@ void addPlayer(){
 
 void showPlayers(){
 		int exit;
-		system("cls");
+		//system("cls");
 		for(int i = 0; i<playersNum; i++){
 			if(strlen(players[i].f_name) <=7  && strlen(players[i].l_name) <=7){
-				printf("\nId: %d\tPrenom: %s\t| Nom: %s\t|Maillot: %d| Post: %s | Buts: %d  | Age: %d | date d'inscription: %s | Statut: %s\n", i, 
+				printf("\nId: %d\tPrenom: %s\t| Nom: %s\t|Maillot: %d| Post: %s | Buts: %d  | Age: %d | date d'inscription: %s | Statut: %s\n", 
+				players[i].id, 
 				players[i].f_name, 
 				players[i].l_name, 
 				players[i].shirtNum,
@@ -215,6 +218,19 @@ void showPlayers(){
 		scanf("%d", &exit);
 }
 		
+void sortPlayersByName() {
+    for (int i = 0; i < playersNum - 1; i++) {
+        for (int j = i + 1; j < playersNum; j++) {
+            int cmp = strcmp(players[i].f_name, players[j].f_name);
+            if (cmp > 0 || (cmp == 0 && strcmp(players[i].l_name, players[j].l_name) > 0)) {
+                Player temp = players[i];
+                players[i] = players[j];
+                players[j] = temp;
+            }
+        }
+    }
+}
+
 int menu(){
 	int command;
 	bool do_it = true;
@@ -271,7 +287,10 @@ int main(){
 	addIt("ayoub", "eldokkali", 17, "Milieu", 11, 17, "05/09/2008", "01/09/2025", "Titluaire");
 	addIt("mstafa", "elwazani", 2, "attaquant", 30, 18, "19/06/2007", "01/09/2025", "Titluaire");
 
-	menu();
+	//menu();
+	
+	sortPlayersByName();
+	showPlayers();
 
 	return 0;
 }
