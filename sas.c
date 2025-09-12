@@ -201,29 +201,35 @@ void showPlayers(){
 		int exit;
 		system("cls");
 		for(int i = 0; i<playersNum; i++){
-			if(strlen(players[i].f_name) <=7  && strlen(players[i].l_name) <=7){
-				printf("\nId: %d\tPrenom: %s\t| Nom: %s\t|Maillot: %d| Post: %s | Buts: %d  | Age: %d | date d'inscription: %s | Statut: %s\n", 
-				players[i].id, 
-				players[i].f_name, 
-				players[i].l_name, 
-				players[i].shirtNum,
-				players[i].post,
-				players[i].goals,
-				players[i].age,
-				players[i].inscription,
-				players[i].status);
-			}else printf("\nId: %d\tPrenom: %s | Nom: %s |Maillot: %d| Post: %s | Buts: %d  | Age: %d | date d'inscription: %s | Statut: %s\n", i, players[i].f_name, players[i].l_name, players[i].shirtNum,players[i].post,players[i].goals,players[i].age,players[i].inscription,players[i].status);
-			printf("--------------------------------------------------------------------------------------------------------------------------------------------");
-		}
+			if(players[i].id >= 0){
+				if(strlen(players[i].f_name) <=7  && strlen(players[i].l_name) <=7){
+					printf("\nId: %d\tPrenom: %s\t| Nom: %s\t|Maillot: %d| Post: %s | Buts: %d  | Age: %d | date d'inscription: %s | Statut: %s\n", 
+					players[i].id, 
+					players[i].f_name, 
+					players[i].l_name, 
+					players[i].shirtNum,
+					players[i].post,
+					players[i].goals,
+					players[i].age,
+					players[i].inscription,
+					players[i].status);
+				}else{
+					printf("\nId: %d\tPrenom: %s | Nom: %s |Maillot: %d| Post: %s | Buts: %d  | Age: %d | date d'inscription: %s | Statut: %s\n", i, players[i].f_name, players[i].l_name, players[i].shirtNum,players[i].post,players[i].goals,players[i].age,players[i].inscription,players[i].status);
+				}
+				printf("-----------------------------------------------------------------------------------------------------------------------------------------------");
+			}
+			
+		}		
 		printf("\n");
 		scanf("%d", &exit);
+	
 }
 		
 /*void sortPlayersByName() {
-    for (int i = 0; i < playersNum - 1; i++) {
+    for (int i = 0; i < playersNum-1; i++) {
         for (int j = i + 1; j < playersNum; j++) {
             int cmp = strcmp(players[i].f_name, players[j].f_name);
-            if (cmp > 0 || (cmp == 0 && strcmp(players[i].l_name, players[j].l_name) > 0)) {
+            if (cmp > 0) {
                 Player temp = players[i];
                 players[i] = players[j];
                 players[j] = temp;
@@ -231,58 +237,100 @@ void showPlayers(){
         }
     }
 }*/
+
 void editPlayer(){
-	int id;
-	int change;
-    char newpost[50];
-    int newgoals;
-	bool found = false;
-	
-	system("cls");
-	printf("Entrez Id de joueur: ");
-	scanf("%d", &id);
-	
-	for (int i = 0; i < playersNum; i++) {
-        if (players[i].id == id) {
-            printf("\n------------------ Joueur trouve ------------------\n");
-            printf("Id: %d\n", players[i].id);
-            printf("Prenom: %s\n", players[i].f_name);
-            printf("Nom: %s\n", players[i].l_name);
-            printf("Numero de maillot: %d\n", players[i].shirtNum);
-            printf("Poste: %s\n", players[i].post);
-            printf("Buts: %d\n", players[i].goals);
-            printf("Age: %d\n", players[i].age);
-            printf("Date de naissance: %s\n", players[i].birthday);
-            printf("Date d'inscription: %s\n", players[i].inscription);
-            printf("Statut: %s\n", players[i].status);
-            printf("---------------------------------------------------\n");
-            found = true;
-            break;
-        }
-    }
-    if(found){
-	    printf("\n1. le poste\n2. le nombre de buts\n Qu est ce que voulez vous modifier: ");
-	    scanf("%d", &change);
-	    switch(change){
-	    	case 1:
-	    		printf("\n Le nouveau poste: ");
-		    	scanf("%s", newpost);
-		    	if(strcasecmp(newpost, "gardien") == 0 || strcasecmp(newpost, "attaquant") == 0 || strcasecmp(newpost, "deffenseur") == 0){
-		    		strcpy(players[id].post, newpost);
-		    		strcpy(notification, "   Poste modifiee avec succes!");
-	    		}else {
-					strcpy(negativeNotification, "  Ce poste n'est pas valide!");
-				}
-			case 2:
-				printf("\n Le nouveau nombre de buts: ");
-				scanf("%d", &newgoals);
-				players[id].goals = newgoals;
-				strcpy(notification, "Nombre de buts modifiee avec succes!");
+	void editById(){
+		int id;
+		int change;
+	    char newpost[50];
+	    int newgoals;
+		bool found = false;
+		system("cls");
+		printf("Entrez Id de joueur: ");
+		scanf("%d", &id);
+		
+		for (int i = 0; i < playersNum; i++) {
+	        if (players[i].id == id) {
+	            printf("\n------------------ Joueur trouve ------------------\n");
+	            printf("Id: %d\n", players[i].id);
+	            printf("Prenom: %s\n", players[i].f_name);
+	            printf("Nom: %s\n", players[i].l_name);
+	            printf("Numero de maillot: %d\n", players[i].shirtNum);
+	            printf("Poste: %s\n", players[i].post);
+	            printf("Buts: %d\n", players[i].goals);
+	            printf("Age: %d\n", players[i].age);
+	            printf("Date de naissance: %s\n", players[i].birthday);
+	            printf("Date d'inscription: %s\n", players[i].inscription);
+	            printf("Statut: %s\n", players[i].status);
+	            printf("---------------------------------------------------\n");
+	            found = true;
+	            break;
+	        }
+	    }
+	    if(found){
+		    printf("\n1. le poste\n2. le nombre de buts\n Qu est ce que voulez vous modifier: ");
+		    scanf("%d", &change);
+		    switch(change){
+		    	case 1:
+		    		printf("\n Le nouveau poste: ");
+			    	scanf("%s", newpost);
+			    	if(strcasecmp(newpost, "gardien") == 0 || strcasecmp(newpost, "attaquant") == 0 || strcasecmp(newpost, "deffenseur") == 0){
+			    		strcpy(players[id].post, newpost);
+			    		strcpy(notification, "   Poste modifiee avec succes!");
+		    		}else {
+						strcpy(negativeNotification, "  Ce poste n'est pas valide!");
+					}
+				case 2:
+					printf("\n Le nouveau nombre de buts: ");
+					scanf("%d", &newgoals);
+					players[id].goals = newgoals;
+					strcpy(notification, "Nombre de buts modifiee avec succes!");
+			}
+		}else{
+			strcpy(negativeNotification, "  Cette Id n'existe pas!");
 		}
-	}else{
+	}
+	editById();
+}
+
+void deletePlayer(){
+	int id;
+	int answer;
+	bool found = false;
+	system("cls");
+	printf("\n Entrez Id de joueur: ");
+	scanf("%d", &id);
+	for (int i = 0; i < playersNum; i++) {
+	    if (players[i].id == id) {
+	        printf("\n------------------ Joueur trouve ------------------\n");
+	        printf("Id: %d\n", players[i].id);
+	        printf("Prenom: %s\n", players[i].f_name);
+	        printf("Nom: %s\n", players[i].l_name);
+	        printf("Numero de maillot: %d\n", players[i].shirtNum);
+	        printf("Poste: %s\n", players[i].post);
+	        printf("Buts: %d\n", players[i].goals);
+	        printf("Age: %d\n", players[i].age);
+	        printf("Date de naissance: %s\n", players[i].birthday);
+	        printf("Date d'inscription: %s\n", players[i].inscription);
+	        printf("Statut: %s\n", players[i].status);
+	        printf("---------------------------------------------------\n");
+	        found = true;
+	        break;
+	    }
+	}
+	if(found){
+		printf("\n Etes vous sur de supprimer ce joueur (1. yes/0. non): ");
+		scanf("%d", &answer);
+		if(answer){
+			players[id].id = -1;
+			strcpy(notification, "  Joueur supprime avec succee");
+		}else if(!answer){
+			strcpy(notification, "  Rien n'a ete suprimmee");
+		}
+	}
+	else{
 		strcpy(negativeNotification, "  Cette Id n'existe pas!");
 	}
-    
 	
 }
 
@@ -321,9 +369,15 @@ int menu(){
 			case 2:
 				do_it = false;
 				showPlayers();
+				break;
 			case 3:
 				do_it = false;
 				editPlayer();
+				break;
+			case 4:
+				do_it = false;
+				deletePlayer();
+				break;
 			default:
 				if(do_it){
 					msg = true;
@@ -346,8 +400,8 @@ int main(){
 	addIt("morad", "lbessri", 99, "attaquant", 35, 21, "08/04/2004", "01/09/2021", "Titluaire");
 	addIt("ayoub", "eldokkali", 17, "Milieu", 11, 17, "05/09/2008", "01/09/2025", "Titluaire");
 	addIt("mstafa", "elwazani", 2, "attaquant", 30, 18, "19/06/2007", "01/09/2025", "Titluaire");
-
-	menu();
-
+	
+	menu();                                                                        
+	
 	return 0;
 }
