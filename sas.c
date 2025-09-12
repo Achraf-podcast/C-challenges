@@ -336,6 +336,7 @@ void deletePlayer(){
 
 void search(){
 	int id;
+	char name[50];
 	int c;
 	int exit;
 	bool found = false;
@@ -350,6 +351,29 @@ void search(){
 			scanf("%d", &id);
 			for (int i = 0; i < playersNum; i++) {
 			    if (players[i].id == id) {
+			        printf("\n------------------ Joueur trouve ------------------\n");
+			        printf("Id: %d\n", players[i].id);
+			        printf("Prenom: %s\n", players[i].f_name);
+			        printf("Nom: %s\n", players[i].l_name);
+			        printf("Numero de maillot: %d\n", players[i].shirtNum);
+			        printf("Poste: %s\n", players[i].post);
+			        printf("Buts: %d\n", players[i].goals);
+			        printf("Age: %d\n", players[i].age);
+			        printf("Date de naissance: %s\n", players[i].birthday);
+			        printf("Date d'inscription: %s\n", players[i].inscription);
+			        printf("Statut: %s\n", players[i].status);
+			        printf("---------------------------------------------------\n");
+			        found = true;
+					scanf("%d", &exit);
+			        break;
+			    }
+			}
+		case 2:
+			system("cls");
+			printf("\n Entrez prenom du joueur: ");
+			scanf("%s", name);
+			for (int i = 0; i < playersNum; i++) {
+			    if (strcasecmp(players[i].f_name, name) == 0) {
 			        printf("\n------------------ Joueur trouve ------------------\n");
 			        printf("Id: %d\n", players[i].id);
 			        printf("Prenom: %s\n", players[i].f_name);
@@ -438,14 +462,14 @@ int menu(){
 
 int main(){
 	addIt("Achraf", "Agourram", 11, "Milieu", 9, 17, "05/11/2007", "01/09/2025", "Titluaire");
-	addIt("aymen", "modich", 1, "attaquant", 26, 19, "26/07/2006", "14/08/2025", "Titluaire");
-	addIt("rayan", "bniazza", 5, "Milieu", 15, 17, "28/02/2008", "01/09/2025", "Titluaire");
-	addIt("anas", "brrada", 9, "Gardien", 1, 20, "01/01/2005", "01/09/2023", "Titluaire");
-	addIt("mehdi", "lyazir", 4, "attaquant", 29, 24, "13/09/2000", "01/09/2018", "Titluaire");
+	addIt("aymen", "modich", 1, "attaquant", 26, 19, "26/07/2006", "14/08/2025", "Remplacant");
+	addIt("rayan", "bniazza", 5, "Milieu", 15, 17, "28/02/2008", "01/09/2025", "Remplacant");
+	addIt("anas", "brrada", 9, "Gardien", 1, 20, "01/01/2005", "01/09/2023", "Remplacant");
+	addIt("mehdi", "lyazir", 4, "attaquant", 29, 24, "13/09/2000", "01/09/2018", "Remplacant");
 	addIt("ousssama", "aouni", 23, "Defensseur", 8, 18, "17/12/2006", "01/09/2024", "Titluaire");
-	addIt("mounir", "chrif", 7, "Defensseur", 9, 22, "03/03/2003", "01/09/2021", "Titluaire");
-	addIt("morad", "lbessri", 99, "attaquant", 35, 21, "08/04/2004", "01/09/2021", "Titluaire");
-	addIt("ayoub", "eldokkali", 17, "Milieu", 11, 17, "05/09/2008", "01/09/2025", "Titluaire");
+	addIt("mounir", "chrif", 7, "Defensseur", 9, 22, "03/03/2003", "01/09/2021", "Remplacant");
+	addIt("morad", "lbessri", 99, "attaquant", 35, 21, "08/04/2004", "01/09/2021", "Remplacant");
+	addIt("ayoub", "eldokkali", 17, "Milieu", 11, 17, "05/09/2008", "01/09/2025", "Remplacant");
 	addIt("mstafa", "elwazani", 2, "attaquant", 30, 18, "19/06/2007", "01/09/2025", "Titluaire");
 	
 	menu();                                                                        
