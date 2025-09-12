@@ -6,6 +6,7 @@
 
 #define RESET   "\033[0m"
 #define RED     "\033[1;31m"
+#define GREEN   "\033[1;32m"
 #define MAX 100
 
 typedef struct {
@@ -22,8 +23,9 @@ typedef struct {
 
 Player players[MAX];
 int playersNum = 0;
+char notification[50] = "";
 
-void print(char value[], bool msg){
+void print(char value[], int error){
 	if(strlen(value) <= 6){
 		printf("\n|%s\t\t\t\t\t\t\t\t       |", value);
 	}else if(strlen(value) <= 14 && strlen(value) > 6){
@@ -31,17 +33,32 @@ void print(char value[], bool msg){
 	}else if(strlen(value) <= 22 && strlen(value) > 14){
 		printf("\n|%s\t\t\t\t\t\t       |", value);
 	}else if(strlen(value) <= 30 && strlen(value) > 22){
-		switch(msg){
-			case true:
+		switch(error){
+			case 0:
 				printf("\n|\t\t\t\t\t\t\t\t       |");
 				printf("\n|%s%s %s\t\t\t\t\t       |",RED, value, RESET);
 				break;
-			case false:
+			case 1:
+				printf("\n|\t\t\t\t\t\t\t\t       |");
+				printf("\n|%s%s %s\t\t\t\t\t       |",GREEN, value, RESET);
+				break;
+			case 2:
 				printf("\n|%s\t\t\t\t\t       |", value);
 		}
 		
 	}else if(strlen(value) <= 38 && strlen(value) > 30){
-		printf("\n|%s\t\t\t\t       |", value);
+		switch(error){
+			case 0:
+				printf("\n|\t\t\t\t\t\t\t\t       |");
+				printf("\n|%s%s %s\t\t\t\t\t       |",RED, value, RESET);
+				break;
+			case 1:
+				printf("\n|\t\t\t\t\t\t\t\t       |");
+				printf("\n|%s%s %s\t\t\t\t       |",GREEN, value, RESET);
+				break;
+			case 2:
+				printf("\n|%s\t\t\t\t       |", value);
+		}
 	}
 	else if(strlen(value) <= 46 && strlen(value) > 38){
 		printf("\n|%s\t\t\t       |", value);
@@ -69,8 +86,8 @@ void addIt(char f_name[], char l_name[], int shirtNum, char post[], int goals, i
 
 void addMultiPlayers(int times){
 	int exit;
-	system("cls");
 	for(int i = 0; i<times; i++){
+		system("cls");
 		int day, month, year;
 		char s_day[50];
 		char s_month[50];
@@ -141,6 +158,7 @@ void addMultiPlayers(int times){
 
 		addIt(v1, v2, v3, v4, v5, age, fullBirthdayDate, fullInscriptionDate, v6);
 	}
+	strcpy(notification, "     Joueur(s) ajoutee avec succee.");
 	
 	printf("\n");
 	scanf("%c", &exit);
@@ -149,12 +167,13 @@ void addMultiPlayers(int times){
 
 void addPlayer(){
 	int command;
+	int n;
 	
 	system("cls");
 	printf("\n--------------------- Gestion d'equipe de football ---------------------");
-	print("1.  Ajouter un nouveau joueur.", false);
-	print("2.  Ajouter plusieurs joueurs en une seule operation.", false);
-	print("3.  Retour.", false);
+	print("1.  Ajouter un nouveau joueur.", 2);
+	print("2.  Ajouter plusieurs joueurs en une seule operation.", 2);
+	print("3.  Retour.", 2);
 	printf("\n------------------------------------------------------------------------");
 	printf("\n Choix:  ");
 	scanf("%d", &command);
@@ -162,6 +181,11 @@ void addPlayer(){
 	switch(command){
 		case 1:
 			addMultiPlayers(1);
+			break;
+		case 2:
+			printf(" Combien de joueurs voulez vous entrer: ");
+			scanf("%d", &n);
+			addMultiPlayers(n);
 			break;
 		case 3:
 			break;
@@ -199,17 +223,19 @@ int menu(){
 	do{
 		system("cls");
 		printf("\n--------------------- Gestion d'equipe de football ---------------------");
-		print("1.   Ajouter un joueur.", false);
-		print("2.   Afficher tout les joueurs.", false);
-		print("3.   Modifier un joueur.", false);
-		print("4.   Supprimer un joueur.", false);
-		print("5.   Rechercher un joueur.", false);
-		print("6.   Statistiques.", false);
-		print("0.   Quitter.", false);
+		print("1.   Ajouter un joueur.", 2);
+		print("2.   Afficher tout les joueurs.", 2);
+		print("3.   Modifier un joueur.", 2);
+		print("4.   Supprimer un joueur.", 2);
+		print("5.   Rechercher un joueur.", 2);
+		print("6.   Statistiques.", 2);
+		print("0.   Quitter.", 2);
 		if(msg == true){
-			print("     Ce choix n' existe pas !", true);
+			print("     Ce choix n' existe pas !", 0);
 			msg = false;
 		}
+		print(notification, 1);
+		strcpy(notification, "");
 		printf("\n------------------------------------------------------------------------");
 	
 		printf("\n Choix:  ");
@@ -244,9 +270,8 @@ int main(){
 	addIt("morad", "lbessri", 99, "attaquant", 35, 21, "08/04/2004", "01/09/2021", "Titluaire");
 	addIt("ayoub", "eldokkali", 17, "Milieu", 11, 17, "05/09/2008", "01/09/2025", "Titluaire");
 	addIt("mstafa", "elwazani", 2, "attaquant", 30, 18, "19/06/2007", "01/09/2025", "Titluaire");
-	
-	menu();
 
+	menu();
 
 	return 0;
 }
