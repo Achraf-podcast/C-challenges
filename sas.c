@@ -393,7 +393,7 @@ void search(){
 			}
 			
 		if(!found){
-			strcpy(negativeNotification, "  Cette Id n'existe pas!");
+			strcpy(negativeNotification, "  Ce joueur n'existe pas!");
 			break;
 		}
 	}
@@ -449,6 +449,7 @@ int menu(){
 			case 5:
 				do_it = false;
 				search();
+				break;
 			default:
 				if(do_it){
 					msg = true;
