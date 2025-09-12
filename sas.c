@@ -323,7 +323,7 @@ void deletePlayer(){
 		scanf("%d", &answer);
 		if(answer){
 			players[id].id = -1;
-			strcpy(notification, "  Joueur supprime avec succee");
+			strcpy(notification, "  Joueur supprimee avec succee");
 		}else if(!answer){
 			strcpy(notification, "  Rien n'a ete suprimmee");
 		}
@@ -331,6 +331,50 @@ void deletePlayer(){
 	else{
 		strcpy(negativeNotification, "  Cette Id n'existe pas!");
 	}
+	
+}
+
+void search(){
+	int id;
+	int c;
+	int exit;
+	bool found = false;
+	system("cls");
+	printf("\n 1. Par Id\n 2. Par prenom\n\n Choix: ");
+	scanf("%d", &c);
+	
+	switch(c){
+		case 1:
+			system("cls");
+			printf("\n Entrez Id du joueur: ");
+			scanf("%d", &id);
+			for (int i = 0; i < playersNum; i++) {
+			    if (players[i].id == id) {
+			        printf("\n------------------ Joueur trouve ------------------\n");
+			        printf("Id: %d\n", players[i].id);
+			        printf("Prenom: %s\n", players[i].f_name);
+			        printf("Nom: %s\n", players[i].l_name);
+			        printf("Numero de maillot: %d\n", players[i].shirtNum);
+			        printf("Poste: %s\n", players[i].post);
+			        printf("Buts: %d\n", players[i].goals);
+			        printf("Age: %d\n", players[i].age);
+			        printf("Date de naissance: %s\n", players[i].birthday);
+			        printf("Date d'inscription: %s\n", players[i].inscription);
+			        printf("Statut: %s\n", players[i].status);
+			        printf("---------------------------------------------------\n");
+			        found = true;
+					scanf("%d", &exit);
+			        break;
+			    }
+			}
+			
+		if(!found){
+			strcpy(negativeNotification, "  Cette Id n'existe pas!");
+			break;
+		}
+	}
+	
+	
 	
 }
 
@@ -378,6 +422,9 @@ int menu(){
 				do_it = false;
 				deletePlayer();
 				break;
+			case 5:
+				do_it = false;
+				search();
 			default:
 				if(do_it){
 					msg = true;
