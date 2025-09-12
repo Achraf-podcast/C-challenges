@@ -225,18 +225,18 @@ void showPlayers(){
 	
 }
 		
-/*void sortPlayersByName() {
+void sortPlayersByName() {
     for (int i = 0; i < playersNum-1; i++) {
-        for (int j = i + 1; j < playersNum; j++) {
-            int cmp = strcmp(players[i].f_name, players[j].f_name);
-            if (cmp > 0) {
-                Player temp = players[i];
-                players[i] = players[j];
+        for (int j = 0; j < playersNum-1; j++) {
+            int cmp = strcmp(players[j+1].f_name, players[j].f_name);
+            if (cmp < 0) {
+                Player temp = players[j+1];
+                players[j+1] = players[j];
                 players[j] = temp;
             }
         }
     }
-}*/
+}
 
 void editPlayer(){
 	void editById(){
@@ -473,7 +473,10 @@ int main(){
 	addIt("ayoub", "eldokkali", 17, "Milieu", 11, 17, "05/09/2008", "01/09/2025", "Remplacant");
 	addIt("mstafa", "elwazani", 2, "attaquant", 30, 18, "19/06/2007", "01/09/2025", "Titluaire");
 	
-	menu();                                                                        
+	menu();
+	/*for(int i = 0; i<playersNum; i++){
+		printf("%d\n", players[i].id);
+	}*/                                                                     
 	
 	return 0;
 }
