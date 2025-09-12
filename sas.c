@@ -2,6 +2,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include <stdbool.h>
+#include <time.h>
 
 #define RESET   "\033[0m"
 #define RED     "\033[1;31m"
@@ -66,8 +67,84 @@ void addIt(char f_name[], char l_name[], int shirtNum, char post[], int goals, i
 	playersNum++;
 }
 
-void addMultiPlayers(){
-	printf("");
+void addMultiPlayers(int times){
+	int exit;
+	system("cls");
+	for(int i = 0; i<times; i++){
+		int day, month, year;
+		char s_day[50];
+		char s_month[50];
+		char s_year[50];
+		char fullInscriptionDate[50] = "";
+		char fullBirthdayDate[50] = "";
+
+		struct tm birth = {0};
+		time_t t = time(NULL);
+		struct tm *today = localtime(&t);
+
+		char v1[50];
+		char v2[50];
+		int v3;
+		char v4[50];
+		int v5;
+		char v6[50];
+
+		printf("\n Prenom: ");
+		scanf("%s", &v1);
+		printf(" Nom: ");
+		scanf("%s", &v2);
+		printf(" Numero de maillot: ");
+		scanf("%d", &v3);
+		printf(" Post: ");
+		scanf("%s", &v4);
+		printf(" Numero de buts: ");
+		scanf("%d", &v5);
+
+		printf(" Date de naissance: ");
+		printf("\n\tJour: ");
+		scanf("%d", &day);
+		printf("\tMois: ");
+		scanf("%d", &month);
+		printf("\tAnnee: ");
+		scanf("%d", &year);
+
+		printf(" Statut: ");
+		scanf("%s", &v6);
+
+		birth.tm_mday = day;
+		birth.tm_mon = month - 1;
+		birth.tm_year = year - 1900;
+
+		int age = today->tm_year - birth.tm_year;
+		if (today->tm_mon < birth.tm_mon ||
+		(today->tm_mon == birth.tm_mon && today->tm_mday < birth.tm_mday)) {
+			age--;
+		}
+		
+		sprintf(s_day, "%d", day);
+		strcat(fullBirthdayDate, s_day);
+		strcat(fullBirthdayDate, "/");
+		sprintf(s_month, "%d", month);
+		strcat(fullBirthdayDate, s_month);
+		strcat(fullBirthdayDate, "/");
+		sprintf(s_year, "%d", year);
+		strcat(fullBirthdayDate, s_year);
+
+		sprintf(s_day, "%d", today->tm_mday);
+		strcat(fullInscriptionDate, s_day);
+		strcat(fullInscriptionDate, "/");
+		sprintf(s_month, "%d", today->tm_mon+1);
+		strcat(fullInscriptionDate, s_month);
+		strcat(fullInscriptionDate, "/");
+		sprintf(s_year, "%d", today->tm_year+1900);
+		strcat(fullInscriptionDate, s_year);
+
+		addIt(v1, v2, v3, v4, v5, age, fullBirthdayDate, fullInscriptionDate, v6);
+	}
+	
+	printf("\n");
+	scanf("%c", &exit);
+
 }
 
 void addPlayer(){
@@ -83,8 +160,9 @@ void addPlayer(){
 	scanf("%d", &command);
 	
 	switch(command){
-		//case 1:	
-			//addIt();
+		case 1:
+			addMultiPlayers(1);
+			break;
 		case 3:
 			break;
 		default:
@@ -93,6 +171,7 @@ void addPlayer(){
 }
 
 void showPlayers(){
+		int exit;
 		system("cls");
 		for(int i = 0; i<playersNum; i++){
 			if(strlen(players[i].f_name) <=7  && strlen(players[i].l_name) <=7){
@@ -106,10 +185,10 @@ void showPlayers(){
 				players[i].inscription,
 				players[i].status);
 			}else printf("\nId: %d\tPrenom: %s | Nom: %s |Maillot: %d| Post: %s | Buts: %d  | Age: %d | date d'inscription: %s | Statut: %s\n", i, players[i].f_name, players[i].l_name, players[i].shirtNum,players[i].post,players[i].goals,players[i].age,players[i].inscription,players[i].status);
-			printf("------------------------------------------------------------------------------------------------------------------------------------------------------------");
+			printf("--------------------------------------------------------------------------------------------------------------------------------------------");
 		}
-		scanf("%d");
-		
+		printf("\n");
+		scanf("%d", &exit);
 }
 		
 int menu(){
@@ -139,6 +218,7 @@ int menu(){
 			case 1:
 				do_it = false;
 				addPlayer();
+				break;
 			case 2:
 				do_it = false;
 				showPlayers();
@@ -166,7 +246,7 @@ int main(){
 	addIt("mstafa", "elwazani", 2, "attaquant", 30, 18, "19/06/2007", "01/09/2025", "Titluaire");
 	
 	menu();
-	
+
 
 	return 0;
 }
